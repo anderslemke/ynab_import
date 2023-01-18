@@ -3,6 +3,7 @@ require "fileutils"
 # Formats
 require "ynab_import/csv/rewriter"
 require "ynab_import/csv/nordea"
+require "ynab_import/csv/jyske_bank"
 require "ynab_import/csv/epos"
 require "ynab_import/csv/rakuten"
 require "ynab_import/csv/shinsei"
@@ -42,15 +43,7 @@ module YnabImport
       end
 
       def rewriter
-        if %w(konto pension).any? { |name| input_path.include?(name) }
-          Csv::Nordea
-        elsif input_path.include? "UseHistoryReference"
-          Csv::Epos
-        elsif input_path.include?("JPY_CH")
-          Csv::Shinsei
-        elsif input_path.include?("RB-torihikimeisai")
-          Csv::Rakuten
-        end
+        return Csv::JyskeBank
       end
   end
 end
