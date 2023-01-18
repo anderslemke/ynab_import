@@ -18,7 +18,7 @@ module YnabImport
         end
 
         def transaction
-          row[4].sub(",", ".").to_f
+          row[4].gsub(".", "").gsub(",", ".").to_f
         end
 
         def currency
